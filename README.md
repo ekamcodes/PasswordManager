@@ -12,9 +12,6 @@ A simple password manager built with Python and Tkinter as part of the #100DaysO
 - 🧠 Remember email/username for quicker reuse
 - ⚠️ User prompts to avoid saving incomplete data
 
-## 📸 UI Preview
-
-> Upload your `logo.png` image to GitHub for the image to show properly.
 
 ## 🚀 How to Run
 
