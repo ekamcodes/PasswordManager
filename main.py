@@ -1,3 +1,4 @@
+import json
 from tkinter import *
 from tkinter import messagebox
 import random
@@ -32,14 +33,28 @@ def save_password():
     website = websiteInput.get()
     email = emailInput.get()
     password = passInput.get()
-
+    new_data = {
+        website:
+            {
+                "email":email,
+                "password":password
+            }
+    }
     if len(website) == 0 or len(email) == 0 or len(password) == 0:
         messagebox.showwarning(title='Warning',message='Please fill in all the fields')
     else:
-        messageBoxOutput = messagebox.askokcancel(title=website,message=f'Email:{email}\nPassword:{password}')
-        if messageBoxOutput:
-            f = open('passwords.txt','a')
-            f.write(f'{email} || {password} || {website}\n')
+        try:
+            with open('data.json','r') as data_file:
+                data = json.load(data_file)
+        except FileNotFoundError:
+            with open('data.json', 'w') as data_file:
+                json.dump(new_data,data_file,indent=4)
+        else:
+            data.update(new_data)
+
+            with open('data.json', 'w') as data_file:
+                json.dump(data,data_file,indent=4)
+        finally:
             emailInput.delete(0,'end')
             passInput.delete(0, 'end')
             websiteInput.delete(0, 'end')
